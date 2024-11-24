@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Symptom Analyzer - Report</title>
+</head>
+<body>
+    <h1>📄 Final Report</h1>
+    <p><strong>Symptoms:</strong> {{ symptoms | join(', ') if symptoms else 'Not specified' }}</p>
+    {% if additional_info.age %}
+        <p><strong>Age:</strong> {{ additional_info.age }} years old</p>
+    {% endif %}
+    {% if additional_info.gender %}
+        <p><strong>Gender:</strong> {{ additional_info.gender.title() }}</p>
+    {% endif %}
+    {% if additional_info.location %}
+        <p><strong>Location:</strong> {{ additional_info.location }}</p>
+    {% endif %}
+    {% if additional_info.duration %}
+        <p><strong>Duration of Symptoms:</strong> {{ additional_info.duration }}</p>
+    {% endif %}
+    {% if additional_info.medications %}
+        <p><strong>Medications Taken:</strong> {{ additional_info.medications | join(', ') }}</p>
+    {% endif %}
+
+    {% if possible_cause and possible_cause != "No suitable cause determined from the transcript." %}
+        <p><strong>Possible Cause:</strong> {{ possible_cause }}</p>
+    {% else %}
+        <p><strong>Possible Cause:</strong> No possible causes determined.</p>
+    {% endif %}
+
+    <p><strong>Recommended Specialist:</strong> {{ specialist }}</p>
+
+    <h2>📝 Transcript of Questions and Answers:</h2>
+    {% for entry in conversation_history %}
+        {% if entry.followup_question_en and entry.response %}
+            <p><strong>Question:</strong> {{ entry.followup_question_en }}</p>
+            <p><strong>Your Answer:</strong> {{ entry.response }}</p>
+            <hr>
+        {% endif %}
+    {% endfor %}
+
+    {% if audio_src %}
+        <h2>Audio Summary in Hindi:</h2>
+        <audio controls autoplay>
+            <source src="{{ audio_src }}" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+    {% endif %}
+
+</body>
+</html>

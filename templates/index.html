@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Symptom Analyzer</title>
+</head>
+<body>
+    <h1>📝 Enter Your Symptoms</h1>
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+    <form method="post">
+        <textarea name="user_input" rows="5" cols="50" placeholder="Describe your symptoms in English"></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
